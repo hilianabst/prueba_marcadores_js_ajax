@@ -1,0 +1,45 @@
+<%= form_with(model: bookmark, remote: true, data: {confirm: "¿Estas seguro?"}) do |form| %>
+  <% if bookmark.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h2>
+
+      <ul>
+      <% bookmark.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class ="w-50">
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :bookmark_name,  :class=> "form-control"%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :url %>
+    <%= form.text_field :url, id: :bookmark_url,  :class=> "form-control"%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :kind_id %>
+    <%# <%= form.text_field :kind_id,  id: :bookmark_kind_id%> 
+    <%= form.select :kind_id, Kind.all.collect{|k| [k.name, k.id]}, {}, id: :bookmark_kind_id, :class=> "form-control", include_blank: false%>
+
+  </div>
+
+  <div class="form-group">
+    <%= form.label :category_id %>
+    <%# <%= form.text_field :category_id,  id: :bookmark_category_id, :class=> "form-control"%>
+    <%= form.select :category_id, Category.all.collect{|c| [c.name, c.id]},{}, id: :bookmark_category_id,:class=> "form-control", include_blank: false%>
+
+  </div>
+
+  </div>
+
+  <div class="actions btn btn-info">
+    <%= form.submit %>
+  </div>
+   </div>
+<% end %>
